@@ -11,7 +11,7 @@
                             <span class="text-primary">سایت سونوگرافی</span>
                         </h1>
                         <p style="color: hsl(217, 10%, 50.8%)">
-                            با ثبت نام در سایت سونو گرافی بهترین خدمات را زا ما دریافت کنید
+                            با ثبت نام در سایت سونو گرافی بهترین خدمات را از ما دریافت کنید
                         </p>
                     </div>
 
@@ -40,7 +40,7 @@
 
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="username" name="user_name" required
+                                        <input type="text" id="username" name="user_name" required
                                                class="form-control"/>
                                         <label class="form-label" for="username">نام کاربری</label>
                                     </div>

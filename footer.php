@@ -71,16 +71,28 @@
 <?php
 global $message;
 foreach ($message as $type => $item) {
-    if ($type === "error") {
-        ?>
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'خطا',
-                text: '<?= $item ?>'
-            });
-        </script>
-        <?php
+    switch ($type) {
+        case 'error':
+            ?>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'خطا',
+                    text: '<?= $item ?>'
+                });
+            </script>
+            <?php
+            break;
+        case 'success':
+            ?>
+            <script>
+                Swal.fire({
+                    icon: 'success',
+                    text: '<?= $item ?>'
+                });
+            </script>
+            <?php
+            break;
     }
 }
 ?>
