@@ -1,29 +1,60 @@
-<?php require_once 'header.php' ?>
-<main>
-    <div class="container">
-        <div id="carouselExample" class="carousel slide">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="asset/img/slider-1.png" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="asset/img/slider-2.jpg" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="asset/img/slider-3.png" class="d-block w-100" alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-        <?php require_once('parts/users.php') ?>
-    </div>
+<?php
 
-</main>
-<?php require_once 'footer.php' ?>
+require_once __DIR__ . '/router.php';
+
+// ##################################################
+// ##################################################
+// ##################################################
+
+// Static GET
+// In the URL -> http://localhost
+// The output -> Index
+
+get('/', 'views/index.php');
+get('/login', 'views/login.php');
+get('/register', 'views/register.php');
+
+// Dynamic GET. Example with 1 variable
+// The $id will be available in user.php
+get('/user/$id', 'views/user');
+
+// Dynamic GET. Example with 2 variables
+// The $name will be available in full_name.php
+// The $last_name will be available in full_name.php
+// In the browser point to: localhost/user/X/Y
+get('/user/$name/$last_name', 'views/full_name.php');
+
+// Dynamic GET. Example with 2 variables with static
+// In the URL -> http://localhost/product/shoes/color/blue
+// The $type will be available in product.php
+// The $color will be available in product.php
+get('/product/$type/color/$color', 'product.php');
+
+// A route with a callback
+get('/callback', function () {
+    echo 'Callback executed';
+});
+
+// A route with a callback passing a variable
+// To run this route, in the browser type:
+// http://localhost/user/A
+get('/callback/$name', function ($name) {
+    echo "Callback executed. The name is $name";
+});
+
+// A route with a callback passing 2 variables
+// To run this route, in the browser type:
+// http://localhost/callback/A/B
+get('/callback/$name/$last_name', function ($name, $last_name) {
+    echo "Callback executed. The full name is $name $last_name";
+});
+
+// ##################################################
+// ##################################################
+// ##################################################
+// any can be used for GETs or POSTs
+
+// For GET or POST
+// The 404.php which is inside the views folder will be called
+// The 404.php has access to $_GET and $_POST
+any('/404', 'views/404.php');
