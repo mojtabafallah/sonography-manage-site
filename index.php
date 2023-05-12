@@ -1,5 +1,6 @@
 <?php
-
+require_once 'core.php';
+require_once 'functions.php';
 require_once __DIR__ . '/router.php';
 
 // ##################################################
@@ -13,6 +14,11 @@ require_once __DIR__ . '/router.php';
 get('/', 'views/index.php');
 get('/login', 'views/login.php');
 get('/register', 'views/register.php');
+
+post('/register', function () {
+    register();
+    include 'views/register.php';
+});
 
 // Dynamic GET. Example with 1 variable
 // The $id will be available in user.php
@@ -58,3 +64,4 @@ get('/callback/$name/$last_name', function ($name, $last_name) {
 // The 404.php which is inside the views folder will be called
 // The 404.php has access to $_GET and $_POST
 any('/404', 'views/404.php');
+

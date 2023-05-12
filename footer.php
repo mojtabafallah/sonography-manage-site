@@ -68,6 +68,22 @@
     </div>
     <!-- Copyright -->
 </footer>
+<?php
+global $message;
+foreach ($message as $type => $item) {
+    if ($type === "error") {
+        ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'خطا',
+                text: '<?= $item ?>'
+            });
+        </script>
+        <?php
+    }
+}
+?>
 <script src="/asset/js/popper.min.js" crossorigin="anonymous"></script>
 <script src="/asset/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script src="/asset/js/swiper-element-bundle.min.js" crossorigin="anonymous"></script>
