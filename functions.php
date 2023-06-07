@@ -43,6 +43,50 @@ function register()
     }
 }
 
+function login()
+{
+    if (isset($_POST['login'])) {
+        global $message;
+
+        //validation
+        if (!isset($_POST['user_name'], $_POST['password'], $_POST['csrf'])) {
+            $message['error'] = 'فیلدها ناقص میباشد';
+            return false;
+        }
+
+        //csrf
+        if (!is_csrf_valid()) {
+            $message['error'] = 'خطای امنیتی رخ داده است.';
+            return false;
+        }
+
+        //exist
+
+        global $conn;
+        $sql = 'SELECT *
+		FROM users
+        WHERE user_name = :userName and password = :password';
+
+        $statement = $conn->prepare($sql);
+        $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        var_dump($passwordHash);
+        $statement->bindParam(':userName', $_POST['user_name']);
+        $statement->bindParam(':password', $passwordHash);
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        var_dump($result);
+
+        if ($result === true) {
+            $message['success'] = 'ورود با موفقیت انجام شد.';
+            return true;
+        } else {
+            $message['error'] = 'نام کاربری یا کلمه عبور اشتباه است.';
+            return false;
+        }
+    }
+}
+
 function existUsername($userName)
 {
     global $conn;

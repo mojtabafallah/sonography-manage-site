@@ -15,6 +15,10 @@ get('/', 'views/index.php');
 get('/login', 'views/login.php');
 get('/register', 'views/register.php');
 
+post('/login', function () {
+    login();
+    include 'views/login.php';
+});
 post('/register', function () {
     register();
     include 'views/register.php';
