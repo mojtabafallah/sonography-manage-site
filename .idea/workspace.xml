@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7707005c-0484-4557-b2c1-2febc3eb19c7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/views/dashboard/my-account.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/dashboard/reception.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/dashboard/my-account.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard/my-account.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/login.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +83,7 @@
       <workItem from="1685465226615" duration="1465000" />
       <workItem from="1685502295290" duration="286000" />
       <workItem from="1686152501382" duration="2640000" />
-      <workItem from="1686190356238" duration="728000" />
+      <workItem from="1686190356238" duration="9089000" />
     </task>
     <servers />
   </component>

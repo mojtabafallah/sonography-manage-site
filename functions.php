@@ -43,6 +43,26 @@ function register()
     }
 }
 
+function get_name_user()
+{
+    return $_SESSION['name'];
+}
+
+function is_admin()
+{
+    if (isset($_SESSION['role'])) {
+        return $_SESSION['role'] == 1;
+
+    }
+    return false;
+}
+
+function logout()
+{
+    unset($_SESSION['user']);
+    header('Location: /');
+}
+
 function login()
 {
     if (isset($_POST['login'])) {
@@ -65,7 +85,9 @@ function login()
         global $conn;
         $sql = 'SELECT *
 		FROM users
-        WHERE user_name = :userName';
+        INNER join role on role.id = users.role_id
+        WHERE user_name = :userName
+        ';
 
         $statement = $conn->prepare($sql);
 
@@ -79,7 +101,12 @@ function login()
                 $message['success'] = 'ورود با موفقیت انجام شد.';
                 $_SESSION['name'] = $result['f_name'] . ' ' . $result['l_name'];
                 $_SESSION['user'] = $result['user_name'];
+                $_SESSION['role'] = $result['role_id'];
+
+                ob_start(); //this should be first line of your page
                 header('/');
+                ob_end_flush(); //this should be last line of your page
+
                 return true;
             } else {
                 $message['error'] = 'نام کاربری یا کلمه عبور اشتباه است.';

@@ -1,7 +1,10 @@
 <?php
 //check is login
 if (is_login()) {
+    ob_start(); //this should be first line of your page
     header('Location: /my-account');
+    ob_end_flush(); //this should be last line of your page
+
     exit();
 }
 
