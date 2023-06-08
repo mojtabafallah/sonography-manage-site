@@ -14,6 +14,7 @@ require_once __DIR__ . '/router.php';
 get('/', 'views/index.php');
 get('/login', 'views/login.php');
 get('/register', 'views/register.php');
+get('/my-account', 'views/dashboard/my-account.php');
 
 post('/login', function () {
     login();

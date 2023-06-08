@@ -1,4 +1,13 @@
-<?php require_once('./header.php') ?>
+<?php
+//check is login
+if (is_login()) {
+    header('Location: /my-account');
+    exit();
+}
+
+require_once('./header.php');
+
+?>
     <section class="vh-100">
         <div class="container-fluid h-custom">
             <div class="row d-flex justify-content-center align-items-center h-100">

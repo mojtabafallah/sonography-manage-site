@@ -65,26 +65,43 @@ function login()
         global $conn;
         $sql = 'SELECT *
 		FROM users
-        WHERE user_name = :userName and password = :password';
+        WHERE user_name = :userName';
 
         $statement = $conn->prepare($sql);
-        $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        var_dump($passwordHash);
+
         $statement->bindParam(':userName', $_POST['user_name']);
-        $statement->bindParam(':password', $passwordHash);
         $statement->execute();
 
         $result = $statement->fetch(PDO::FETCH_ASSOC);
-        var_dump($result);
 
-        if ($result === true) {
-            $message['success'] = 'ورود با موفقیت انجام شد.';
-            return true;
+        if ($result) {
+            if (password_verify($_POST['password'], $result['password'])) {
+                $message['success'] = 'ورود با موفقیت انجام شد.';
+                $_SESSION['name'] = $result['f_name'] . ' ' . $result['l_name'];
+                $_SESSION['user'] = $result['user_name'];
+                header('/');
+                return true;
+            } else {
+                $message['error'] = 'نام کاربری یا کلمه عبور اشتباه است.';
+                return false;
+            }
         } else {
             $message['error'] = 'نام کاربری یا کلمه عبور اشتباه است.';
             return false;
         }
     }
+}
+
+function is_login()
+{
+    if (!isset($_SESSION['user'])) {
+        return false;
+    }
+    //check exist user name
+    if (!existUsername($_SESSION['user'])) {
+        return false;
+    }
+    return true;
 }
 
 function existUsername($userName)
