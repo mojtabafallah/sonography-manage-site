@@ -16,8 +16,13 @@ get('/login', 'views/login.php');
 get('/register', 'views/register.php');
 get('/my-account', 'views/dashboard/my-account.php');
 get('/reception', 'views/dashboard/reception.php');
-get('/logout', function (){
+get('/logout', function () {
     logout();
+});
+
+post('/save_patient', function () {
+    save_patient();
+    include 'views/dashboard/reception.php';
 });
 
 post('/login', function () {

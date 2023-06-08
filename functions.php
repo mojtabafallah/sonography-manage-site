@@ -1,5 +1,5 @@
 <?php
-
+require_once 'db.php';
 function register()
 {
     if (isset($_POST['register'])) {
@@ -50,11 +50,20 @@ function get_name_user()
 
 function is_admin()
 {
-    if (isset($_SESSION['role'])) {
-        return $_SESSION['role'] == 1;
+    $userName = $_SESSION['user'];
+    global $conn;
+    $sql = 'SELECT *
+		FROM users
+        WHERE user_name = :userName
+        ';
 
-    }
-    return false;
+    $statement = $conn->prepare($sql);
+
+    $statement->bindParam(':userName', $userName);
+    $statement->execute();
+
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
+    return $result['role_id'] == 3;
 }
 
 function logout()
@@ -116,6 +125,45 @@ function login()
             $message['error'] = 'نام کاربری یا کلمه عبور اشتباه است.';
             return false;
         }
+    }
+}
+
+function save_patient()
+{
+    if (isset($_POST['save_patient'])) {
+        global $message;
+
+        //validation
+        if (!isset($_POST['national_code'], $_POST['mobile_phone'], $_POST['csrf'],
+            $_POST['first_name'], $_POST['last_name']
+        )) {
+            $message['error'] = 'فیلدها ناقص میباشد';
+            return false;
+        }
+
+        //csrf
+        if (!is_csrf_valid()) {
+            $message['error'] = 'خطای امنیتی رخ داده است.';
+            return false;
+        }
+
+        //insert data
+        $result = insert(
+            'users',
+            [
+                'f_name' => $_POST['first_name'],
+                'l_name' => $_POST['last_name'],
+                'user_name' => $_POST['national_code'],
+                'password' => password_hash($_POST['mobile_phone'], PASSWORD_DEFAULT)
+            ]
+        );
+
+        if ($result === true){
+            $message['success'] = 'ثبت نام با موفقیت انجام شد.';
+        }else{
+            $message['error'] = 'خطایی رخ داده است';
+        }
+
     }
 }
 

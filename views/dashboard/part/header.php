@@ -14,6 +14,7 @@
     <!-- Nucleo Icons -->
     <link href="/views/dashboard/assets/css/nucleo-icons.css" rel="stylesheet"/>
     <link href="/views/dashboard/assets/css/nucleo-svg.css" rel="stylesheet"/>
+    <script src="/asset/js/sweetalert2.js"></script>
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="/views/dashboard/assets/css/nucleo-svg.css" rel="stylesheet"/>
