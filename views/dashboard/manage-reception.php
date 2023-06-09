@@ -36,7 +36,7 @@ include 'part/header.php';
                             <tr>
                                 <th scope="row"><?php echo $reception->reception_id ?></th>
                                 <td><?php echo $reception->user_name ?></td>
-                                <td><?php echo $reception->meta_key ?></td>
+                                <td><?php echo $reception->meta_value ?></td>
                                 <td><?php echo $reception->f_name ?></td>
                                 <td><?php echo $reception->l_name ?></td>
                                 <td><?php echo $reception->type ?></td>

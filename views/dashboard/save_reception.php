@@ -10,7 +10,9 @@ if (!isset($_GET['user_id'])) {
     exit();
 }
 
+
 $userItem = get_user($_GET['user_id']);
+
 if (!$userItem) {
     header('Location: /customer-list');
     exit();
@@ -34,7 +36,7 @@ include 'part/header.php';
                                 <div class="form-group">
                                     <input type="hidden" readonly name="user_id" value="<?php echo $userItem->id ?>">
                                     <label for="national-code">کد ملی(نام کاربری)</label>
-                                    <input required type="number" class="form-control" id="national-code"
+                                    <input required type="text" class="form-control" id="national-code"
                                            readonly
                                            name="national_code"
                                            placeholder="کد ملی را وارد کنید"

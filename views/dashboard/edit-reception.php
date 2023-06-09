@@ -40,7 +40,7 @@ include 'part/header.php';
                                     <input type="hidden" readonly name="user_id"
                                            value="<?php echo $receptionItem->user_id ?>">
                                     <label for="national-code">کد ملی(نام کاربری)</label>
-                                    <input required type="number" class="form-control" id="national-code"
+                                    <input required type="text" class="form-control" id="national-code"
                                            readonly
                                            name="national_code"
                                            placeholder="کد ملی را وارد کنید"

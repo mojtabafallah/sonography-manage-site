@@ -25,9 +25,21 @@ get('/bime/add', 'views/dashboard/add-bime.php');
 
 get('/reception/edit', 'views/dashboard/edit-reception.php');
 
+get('/reception/view', 'views/dashboard/view-reception.php');
+
+get('/save-reception', function () {
+    header('Location: /user/save_reception?user_id=' . get_user_current_object()->id);
+});
+
+
 get('/user/delete', function () {
     delete_user();
     include 'views/dashboard/edit-user.php';
+});
+
+get('/reception/delete', function () {
+    delete_reception();
+    include 'views/dashboard/manage-reception.php';
 });
 
 get('/bime/delete', function () {

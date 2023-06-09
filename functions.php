@@ -48,12 +48,27 @@ function get_name_user()
     return $_SESSION['name'];
 }
 
+function get_user_current_object(){
+    global $conn;
+    $sql = 'SELECT *
+		FROM users
+        WHERE user_name = :username
+        ';
+
+    $statement = $conn->prepare($sql);
+
+    $statement->bindParam(':username', $_SESSION['user']);
+    $statement->execute();
+
+    return $statement->fetch(PDO::FETCH_OBJ);
+}
+
 function get_user($user_id)
 {
     global $conn;
     $sql = 'SELECT *
 		FROM users
-        inner join user_meta on user_meta.user_id = users.id
+        left join user_meta on user_meta.user_id = users.id
         WHERE id = :userId
         ';
 
@@ -131,6 +146,22 @@ function delete_bime()
     }
 }
 
+function delete_reception()
+{
+    global $message;
+    $receptionItem = get_reception($_GET['reception_id']);
+    if (!$receptionItem) {
+        header('Location: /manage-bime');
+        exit();
+    }
+
+    $result = deleteDb('reception', "reception_id = $receptionItem->reception_id");
+    if ($result) {
+        $message['success'] = 'حذف با موفقیت انجام شد.';
+    } else {
+        $message['error'] = 'خطایی رخ داده است';
+    }
+}
 
 function user_edit()
 {
@@ -177,7 +208,6 @@ function user_edit()
 
     }
 }
-
 
 function bime_edit()
 {
@@ -376,9 +406,9 @@ function get_receptions()
 FROM
     reception
 INNER JOIN users on users.id = reception.user_id
-        inner join user_meta on user_meta.user_id = users.id
+        left join user_meta on user_meta.user_id = users.id
 INNER JOIN bimes on bimes.id = reception.bime_id
-where meta_key = 'phone'
+where meta_key = 'phone' or 1
         ";
 
     $statement = $conn->prepare($sql);

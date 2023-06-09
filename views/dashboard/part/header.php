@@ -60,7 +60,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link active" href="/profile">
+                <a class="nav-link active" href="/my-account">
                     <span class="nav-link-text ms-1">پروفایل</span>
                 </a>
             </li>
