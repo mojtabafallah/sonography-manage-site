@@ -20,6 +20,7 @@ get('/customer-list', 'views/dashboard/customer-list.php');
 get('/user/edit', 'views/dashboard/edit-user.php');
 get('/user/save_reception', 'views/dashboard/save_reception.php');
 get('/manage-bime', 'views/dashboard/manage-bime.php');
+get('/manage-reception', 'views/dashboard/manage-reception.php');
 get('/bime/add', 'views/dashboard/add-bime.php');
 
 get('/user/delete', function () {
@@ -39,6 +40,11 @@ get('/logout', function () {
 post('/user/edit', function () {
     user_edit();
     include 'views/dashboard/edit-user.php';
+});
+
+post('/reception/save', function () {
+    reception_save();
+    include 'views/dashboard/manage-reception.php';
 });
 
 get('/bime/save', function () {

@@ -90,6 +90,12 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link active" href="/manage-reception">
+                    <span class="nav-link-text ms-1">مدیریت پذیرش</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link active" href="/pricing">
                     <span class="nav-link-text ms-1">قیمت گذاری</span>
                 </a>

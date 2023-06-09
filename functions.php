@@ -260,6 +260,25 @@ function get_bimes()
     return $statement->fetchAll(PDO::FETCH_OBJ);
 }
 
+function get_receptions()
+{
+    global $conn;
+    $sql = "SELECT
+    *
+FROM
+    reception
+INNER JOIN users on users.id = reception.user_id
+        inner join user_meta on user_meta.user_id = users.id
+INNER JOIN bimes on bimes.id = reception.bime_id
+where meta_key = 'phone'
+        ";
+
+    $statement = $conn->prepare($sql);
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_OBJ);
+}
+
 function save_bime()
 {
     if (isset($_POST['save_bime'])) {
@@ -285,6 +304,93 @@ function save_bime()
                 'title' => $_POST['bime_name'],
                 'percent' => $_POST['percent'],
                 'address' => $_POST['address']
+            ]
+        );
+
+        if ($result) {
+            $message['success'] = 'ثبت با موفقیت انجام شد.';
+        } else {
+            $message['error'] = 'خطایی رخ داده است';
+        }
+    }
+}
+
+function reception_save()
+{
+    if (isset($_POST['save_reception'])) {
+        global $message;
+
+        //validation
+        if (!isset($_POST['user_id'], $_POST['type_reception'], $_POST['type_bime'], $_POST['bime_takmili'], $_FILES['file'],
+            $_POST['total_price'], $_POST['date']
+            , $_POST['csrf']
+        )) {
+            $message['error'] = 'فیلدها ناقص میباشد';
+            return false;
+        }
+
+        //csrf
+        if (!is_csrf_valid()) {
+            $message['error'] = 'خطای امنیتی رخ داده است.';
+            return false;
+        }
+
+        //upload file
+        $target_dir = "uploads/";
+        $target_file = $target_dir . basename($_FILES["file"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+// Check if image file is a actual image or fake image
+
+        $check = getimagesize($_FILES["file"]["tmp_name"]);
+        if ($check !== false) {
+            $uploadOk = 1;
+        } else {
+            $uploadOk = 0;
+        }
+
+
+// Check if file already exists
+        if (file_exists($target_file)) {
+            $uploadOk = 0;
+        }
+
+// Check file size
+        if ($_FILES["file"]["size"] > 500000) {
+            $uploadOk = 0;
+        }
+
+// Allow certain file formats
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif") {
+
+            $uploadOk = 0;
+        }
+
+// Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            $message['error'] = 'فایل آپلود نشد';
+// if everything is ok, try to upload file
+        } else {
+            if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                $message['success'] = 'فایل آپلود شد';
+            } else {
+                $message['error'] = 'فایل آپلود نشد';
+            }
+        }
+
+        //insert data
+        $result = insert(
+            'reception',
+            [
+                'user_id' => $_POST['user_id'],
+                'type' => $_POST['type_reception'],
+                'bime_id' => $_POST['type_bime'],
+                'bime_takmili' => $_POST['bime_takmili'],
+                'file' => $target_file,
+                'total_price' => $_POST['total_price'],
+                'date' => $_POST['date'],
             ]
         );
 

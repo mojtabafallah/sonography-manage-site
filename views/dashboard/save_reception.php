@@ -16,6 +16,7 @@ if (!$userItem) {
     exit();
 }
 
+$bimes = get_bimes();
 include 'part/header.php';
 ?>
     <div class="container-fluid py-4">
@@ -26,19 +27,18 @@ include 'part/header.php';
                     <h6 class="mb-3">پذیرش بیمار</h6>
                 </div>
                 <div class="card-body p-3">
-                    <form method="post" action="/user/save-reception" enctype="multipart/form-data">
+                    <form method="post" action="/reception/save" enctype="multipart/form-data">
                         <?php set_csrf(); ?>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <input type="hidden" name="user_id" value="<?php echo $userItem->id ?>">
+                                    <input type="hidden" readonly name="user_id" value="<?php echo $userItem->id ?>">
                                     <label for="national-code">کد ملی(نام کاربری)</label>
                                     <input required type="number" class="form-control" id="national-code"
                                            readonly
                                            name="national_code"
                                            placeholder="کد ملی را وارد کنید"
                                            value="<?php echo $userItem->user_name ?>">
-
                                 </div>
                             </div>
 
@@ -80,7 +80,7 @@ include 'part/header.php';
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="type-reception">نوع پذیرش</label>
-                                    <select name="" id="type-reception" class="form-select">
+                                    <select name="type_reception" id="type-reception" class="form-select">
                                         <option value="">انتخاب کنید</option>
                                         <option value="sono">سنو گرافی</option>
                                         <option value="radio">رادیولوژی</option>
@@ -91,7 +91,7 @@ include 'part/header.php';
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="type-bime">بیمه پایه</label>
-                                    <select name="" class="form-select" id="type-bime">
+                                    <select name="type_bime" class="form-select" id="type-bime">
                                         <option value="">نوع بیمه را انتخاب کنید</option>
                                         <?php foreach ($bimes as $bime): ?>
                                             <option value="<?php echo $bime->id ?>"><?php echo $bime->title ?></option>
@@ -118,6 +118,14 @@ include 'part/header.php';
                                 <div class="form-group">
                                     <label for="total-price">قیمت نهایی</label>
                                     <input type="text" class="form-control" id="total-price" name="total_price"
+                                           placeholder="قیمت نهایی">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="total-price">تاریخ</label>
+                                    <input type="date" class="form-control" id="total-price" name="date"
                                            placeholder="قیمت نهایی">
                                 </div>
                             </div>
