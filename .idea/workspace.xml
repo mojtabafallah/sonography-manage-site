@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7707005c-0484-4557-b2c1-2febc3eb19c7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/views/dashboard/manage-reception.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/dashboard/edit-reception.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/dashboard/part/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard/part/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/dashboard/save_reception.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard/save_reception.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/dashboard/manage-reception.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard/manage-reception.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +84,7 @@
       <workItem from="1685502295290" duration="286000" />
       <workItem from="1686152501382" duration="2640000" />
       <workItem from="1686190356238" duration="14574000" />
-      <workItem from="1686266515784" duration="22766000" />
+      <workItem from="1686266515784" duration="24664000" />
     </task>
     <servers />
   </component>

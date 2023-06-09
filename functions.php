@@ -98,6 +98,22 @@ function delete_user()
     }
 }
 
+function get_reception($reception_id)
+{
+    global $conn;
+    $sql = 'SELECT *
+		FROM reception
+        WHERE reception_id = :receptionId
+        ';
+
+    $statement = $conn->prepare($sql);
+
+    $statement->bindParam(':receptionId', $reception_id);
+    $statement->execute();
+
+    return $statement->fetch(PDO::FETCH_OBJ);
+}
+
 function delete_bime()
 {
     global $message;
@@ -192,6 +208,98 @@ function bime_edit()
                 'address' => $_POST['address']
             ],
             "id = $bime_id");
+
+        if ($result) {
+            $message['success'] = 'ویرایش با موفقیت انجام شد.';
+        } else {
+            $message['error'] = 'خطایی رخ داده است';
+        }
+
+    }
+}
+
+function reception_edit()
+{
+    if (isset($_POST['edit_reception'])) {
+        global $message;
+
+        //validation
+        if (!isset($_POST['user_id'], $_POST['type_reception'], $_POST['csrf'],
+            $_POST['type_bime'], $_POST['bime_takmili'], $_FILES['file'], $_POST['total_price'], $_POST['date'],
+            $_POST['reception_id']
+        )) {
+            $message['error'] = 'فیلدها ناقص میباشد';
+            return false;
+        }
+
+        //csrf
+        if (!is_csrf_valid()) {
+            $message['error'] = 'خطای امنیتی رخ داده است.';
+            return false;
+        }
+
+        $reception_id = $_POST['reception_id'];
+        $target_file = $_POST['file_name'];
+        //upload file
+        if (basename($_FILES["file"]["name"])) {
+            $target_dir = "uploads/";
+            $target_file = $target_dir . basename($_FILES["file"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+// Check if image file is a actual image or fake image
+
+            $check = getimagesize($_FILES["file"]["tmp_name"]);
+            if ($check !== false) {
+                $uploadOk = 1;
+            } else {
+                $uploadOk = 0;
+            }
+
+
+// Check if file already exists
+            if (file_exists($target_file)) {
+                $uploadOk = 0;
+            }
+
+// Check file size
+            if ($_FILES["file"]["size"] > 500000) {
+                $uploadOk = 0;
+            }
+
+// Allow certain file formats
+            if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                && $imageFileType != "gif") {
+
+                $uploadOk = 0;
+            }
+
+// Check if $uploadOk is set to 0 by an error
+            if ($uploadOk == 0) {
+                $message['error'] = 'فایل آپلود نشد';
+// if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+                    $message['success'] = 'فایل آپلود شد';
+                } else {
+                    $message['error'] = 'فایل آپلود نشد';
+                }
+            }
+        }
+
+        //insert data
+        $result = edit(
+            'reception',
+            [
+                'user_id' => $_POST['user_id'],
+                'type' => $_POST['type_reception'],
+                'bime_id' => $_POST['type_bime'],
+                'bime_takmili' => $_POST['bime_takmili'],
+                'file' => $target_file,
+                'total_price' => $_POST['total_price'],
+                'date' => $_POST['date']
+            ],
+            "reception_id = $reception_id");
 
         if ($result) {
             $message['success'] = 'ویرایش با موفقیت انجام شد.';

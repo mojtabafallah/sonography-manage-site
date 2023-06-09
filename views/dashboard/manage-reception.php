@@ -44,13 +44,13 @@ include 'part/header.php';
                                 <td><?php echo $reception->date ?></td>
                                 <td>
                                     <a class="btn btn-secondary"
-                                       href="/reception/edit?<?php echo http_build_query(["reception" => $reception->reception_id]) ?>">ویرایش</a>
+                                       href="/reception/edit?<?php echo http_build_query(["reception_id" => $reception->reception_id]) ?>">ویرایش</a>
 
                                     <a class="btn btn-danger"
-                                       href="/reception/delete?<?php echo http_build_query(["reception" => $reception->reception_id]) ?>">حذف</a>
+                                       href="/reception/delete?<?php echo http_build_query(["reception_id" => $reception->reception_id]) ?>">حذف</a>
 
                                     <a class="btn btn-danger"
-                                       href="/reception/view?<?php echo http_build_query(["reception" => $reception->reception_id]) ?>">نمایش</a>
+                                       href="/reception/view?<?php echo http_build_query(["reception_id" => $reception->reception_id]) ?>">نمایش</a>
 
                                 </td>
                             </tr>
