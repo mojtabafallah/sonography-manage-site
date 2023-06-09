@@ -11,7 +11,7 @@ include 'part/header.php';
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header pb-0 p-3">
-                    <h6 class="mb-3">ثبت اطلاعات بیمار</h6>
+                    <h6 class="mb-3">مدیریت بیمه ها</h6>
                     <a href="/bime/add" class="btn btn-primary">افزودن</a>
                 </div>
                 <div class="card-body p-3">

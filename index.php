@@ -27,6 +27,11 @@ get('/user/delete', function () {
     include 'views/dashboard/edit-user.php';
 });
 
+get('/bime/delete', function () {
+    delete_bime();
+    include 'views/dashboard/manage-bime.php';
+});
+
 get('/logout', function () {
     logout();
 });
@@ -36,10 +41,22 @@ post('/user/edit', function () {
     include 'views/dashboard/edit-user.php';
 });
 
+get('/bime/save', function () {
+    include 'views/dashboard/manage-bime.php';
+});
+
 post('/bime/save', function () {
     save_bime();
     include 'views/dashboard/manage-bime.php';
 });
+
+get('/bime/edit', 'views/dashboard/edit-bime.php');
+
+post('/bime/edit', function () {
+    bime_edit();
+    include 'views/dashboard/edit-bime.php';
+});
+
 
 post('/save_patient', function () {
     save_patient();

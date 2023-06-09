@@ -65,6 +65,22 @@ function get_user($user_id)
     return $statement->fetch(PDO::FETCH_OBJ);
 }
 
+function get_bime($bime_id)
+{
+    global $conn;
+    $sql = 'SELECT *
+		FROM bimes
+        WHERE id = :bimeId
+        ';
+
+    $statement = $conn->prepare($sql);
+
+    $statement->bindParam(':bimeId', $bime_id);
+    $statement->execute();
+
+    return $statement->fetch(PDO::FETCH_OBJ);
+}
+
 function delete_user()
 {
     global $message;
@@ -75,6 +91,23 @@ function delete_user()
     }
 
     $result = deleteDb('users', "id = $userItem->id");
+    if ($result) {
+        $message['success'] = 'حذف با موفقیت انجام شد.';
+    } else {
+        $message['error'] = 'خطایی رخ داده است';
+    }
+}
+
+function delete_bime()
+{
+    global $message;
+    $bimeItem = get_bime($_GET['bime_id']);
+    if (!$bimeItem) {
+        header('Location: /manage-bime');
+        exit();
+    }
+
+    $result = deleteDb('bimes', "id = $bimeItem->id");
     if ($result) {
         $message['success'] = 'حذف با موفقیت انجام شد.';
     } else {
@@ -121,6 +154,46 @@ function user_edit()
             "user_id = {$user_id} and meta_key = 'phone'");
 
         if ($resultMeta) {
+            $message['success'] = 'ویرایش با موفقیت انجام شد.';
+        } else {
+            $message['error'] = 'خطایی رخ داده است';
+        }
+
+    }
+}
+
+
+function bime_edit()
+{
+    if (isset($_POST['edit_bime'])) {
+        global $message;
+
+        //validation
+        if (!isset($_POST['bime_id'], $_POST['bime_name'], $_POST['csrf'],
+            $_POST['percent'], $_POST['address']
+        )) {
+            $message['error'] = 'فیلدها ناقص میباشد';
+            return false;
+        }
+
+        //csrf
+        if (!is_csrf_valid()) {
+            $message['error'] = 'خطای امنیتی رخ داده است.';
+            return false;
+        }
+
+        $bime_id = $_POST['bime_id'];
+        //insert data
+        $result = edit(
+            'bimes',
+            [
+                'title' => $_POST['bime_name'],
+                'percent' => $_POST['percent'],
+                'address' => $_POST['address']
+            ],
+            "id = $bime_id");
+
+        if ($result) {
             $message['success'] = 'ویرایش با موفقیت انجام شد.';
         } else {
             $message['error'] = 'خطایی رخ داده است';
