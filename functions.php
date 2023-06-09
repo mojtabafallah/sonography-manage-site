@@ -74,14 +74,13 @@ function delete_user()
         exit();
     }
 
-    $result = deleteDb('users',"id = $userItem->id");
+    $result = deleteDb('users', "id = $userItem->id");
     if ($result) {
         $message['success'] = 'حذف با موفقیت انجام شد.';
     } else {
         $message['error'] = 'خطایی رخ داده است';
     }
 }
-
 
 
 function user_edit()
@@ -173,6 +172,55 @@ function get_customers()
         $finaData[] = (object)$temp;
     }
     return $finaData;
+}
+
+function get_bimes()
+{
+    global $conn;
+    $sql = "SELECT *
+        FROM bimes
+        ";
+
+    $statement = $conn->prepare($sql);
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_OBJ);
+}
+
+function save_bime()
+{
+    if (isset($_POST['save_bime'])) {
+        global $message;
+
+        //validation
+        if (!isset($_POST['bime_name'], $_POST['percent'], $_POST['address'], $_POST['csrf']
+        )) {
+            $message['error'] = 'فیلدها ناقص میباشد';
+            return false;
+        }
+
+        //csrf
+        if (!is_csrf_valid()) {
+            $message['error'] = 'خطای امنیتی رخ داده است.';
+            return false;
+        }
+
+        //insert data
+        $result = insert(
+            'bimes',
+            [
+                'title' => $_POST['bime_name'],
+                'percent' => $_POST['percent'],
+                'address' => $_POST['address']
+            ]
+        );
+
+        if ($result) {
+            $message['success'] = 'ثبت با موفقیت انجام شد.';
+        } else {
+            $message['error'] = 'خطایی رخ داده است';
+        }
+    }
 }
 
 function logout()

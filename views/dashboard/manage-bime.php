@@ -12,39 +12,35 @@ include 'part/header.php';
             <div class="card">
                 <div class="card-header pb-0 p-3">
                     <h6 class="mb-3">ثبت اطلاعات بیمار</h6>
+                    <a href="/bime/add" class="btn btn-primary">افزودن</a>
                 </div>
                 <div class="card-body p-3">
                     <table class="table">
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">کد ملی</th>
-                            <th scope="col">تافن همراه</th>
                             <th scope="col">نام</th>
-                            <th scope="col">نام خانوادگی</th>
+                            <th scope="col">درصد پوشش</th>
+                            <th scope="col">آدرس</th>
                             <th scope="col">عملیات</th>
                         </tr>
                         </thead>
                         <tbody>
                         <?php
-                        $customers = get_customers();
-                        foreach ($customers as $customer):
+                        $bimes = get_bimes();
+                        foreach ($bimes as $bime):
                             ?>
                             <tr>
-                                <th scope="row"><?php echo $customer->id ?></th>
-                                <td><?php echo $customer->national_code ?></td>
-                                <td><?php echo $customer->phone ?></td>
-                                <td><?php echo $customer->f_name ?></td>
-                                <td><?php echo $customer->l_name ?></td>
+                                <th scope="row"><?php echo $bime->id ?></th>
+                                <td><?php echo $bime->title ?></td>
+                                <td><?php echo $bime->percent ?></td>
+                                <td><?php echo $bime->address ?></td>
                                 <td>
                                     <a class="btn btn-secondary"
-                                       href="/user/edit?<?php echo http_build_query(["user_id" => $customer->id]) ?>">ویرایش</a>
+                                       href="/bime/edit?<?php echo http_build_query(["bime_id" => $bime->id]) ?>">ویرایش</a>
 
                                     <a class="btn btn-danger"
-                                       href="/user/delete?<?php echo http_build_query(["user_id" => $customer->id]) ?>">حذف</a>
-
-                                    <a class="btn btn-primary"
-                                       href="/user/save_reception?<?php echo http_build_query(["user_id" => $customer->id]) ?>">پذیرش</a>
+                                       href="/bime/delete?<?php echo http_build_query(["bime_id" => $bime->id]) ?>">حذف</a>
 
                                 </td>
                             </tr>

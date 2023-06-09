@@ -18,6 +18,9 @@ get('/my-account', 'views/dashboard/my-account.php');
 get('/reception', 'views/dashboard/reception.php');
 get('/customer-list', 'views/dashboard/customer-list.php');
 get('/user/edit', 'views/dashboard/edit-user.php');
+get('/user/save_reception', 'views/dashboard/save_reception.php');
+get('/manage-bime', 'views/dashboard/manage-bime.php');
+get('/bime/add', 'views/dashboard/add-bime.php');
 
 get('/user/delete', function () {
     delete_user();
@@ -31,6 +34,11 @@ get('/logout', function () {
 post('/user/edit', function () {
     user_edit();
     include 'views/dashboard/edit-user.php';
+});
+
+post('/bime/save', function () {
+    save_bime();
+    include 'views/dashboard/manage-bime.php';
 });
 
 post('/save_patient', function () {

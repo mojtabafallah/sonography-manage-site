@@ -60,12 +60,6 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link active" href="/upload-file">
-                    <span class="nav-link-text ms-1">اپلود مدارک</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
                 <a class="nav-link active" href="/profile">
                     <span class="nav-link-text ms-1">پروفایل</span>
                 </a>
@@ -86,6 +80,12 @@
             <li class="nav-item">
                 <a class="nav-link active" href="/employ-list">
                     <span class="nav-link-text ms-1">لیست پرسنل</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link active" href="/manage-bime">
+                    <span class="nav-link-text ms-1">مدیریت بیمه ها</span>
                 </a>
             </li>
 
