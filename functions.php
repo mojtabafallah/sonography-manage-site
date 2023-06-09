@@ -736,7 +736,128 @@ function exit_user()
 
 }
 
-function get_timing(){
+function save_pricing()
+{
+    if (isset($_POST['save_pricing'])) {
+        global $message;
+
+        //validation
+        if (!isset($_POST['sono'], $_POST['radio'], $_POST['csrf']
+        )) {
+            $message['error'] = 'فیلدها ناقص میباشد';
+            return false;
+        }
+
+        //csrf
+        if (!is_csrf_valid()) {
+            $message['error'] = 'خطای امنیتی رخ داده است.';
+            return false;
+        }
+
+        global $conn;
+        $sql = "SELECT
+    *
+FROM
+    options
+where option_name = 'sono_price'
+        ";
+
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        if (!$result) {
+            $result = insert(
+                'options',
+                [
+                    'option_value' => $_POST['sono'],
+                    'option_name' => 'sono_price'
+                ]
+            );
+
+            if ($result) {
+                $message['success'] = 'اطلاعات با موفقیت ثبت شد.';
+            } else {
+                $message['error'] = 'خطایی رخ داده است';
+            }
+        } else {
+            $result = edit('options',
+                [
+                    'option_value' => $_POST['sono']
+                ],
+                ' option_name = "sono_price" ');
+
+            if ($result) {
+                $message['success'] = 'اطلاعات با موفقیت ثبت شد.';
+            } else {
+                $message['error'] = 'خطایی رخ داده است';
+            }
+        }
+
+        global $conn;
+        $sql = "SELECT
+    *
+FROM
+    options
+where option_name = 'radio_price'
+        ";
+
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+
+        $result = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        if (!$result) {
+            $result = insert(
+                'options',
+                [
+                    'option_value' => $_POST['radio'],
+                    'option_name' => 'radio_price'
+                ]
+            );
+
+            if ($result) {
+                $message['success'] = 'اطلاعات با موفقیت ثبت شد.';
+            } else {
+                $message['error'] = 'خطایی رخ داده است';
+            }
+        } else {
+            $result = edit('options',
+                [
+                    'option_value' => $_POST['radio']
+                ],
+                ' option_name = "radio_price" ');
+
+            if ($result) {
+                $message['success'] = 'اطلاعات با موفقیت ثبت شد.';
+            } else {
+                $message['error'] = 'خطایی رخ داده است';
+            }
+        }
+
+    }
+}
+
+function get_option($option_name)
+{
+    global $conn;
+    $sql = "SELECT
+    *
+FROM
+    options
+where option_name = '$option_name'
+        ";
+
+    $statement = $conn->prepare($sql);
+    $statement->execute();
+
+    $result = $statement->fetch(PDO::FETCH_OBJ);
+    return $result->option_value;
+}
+
+function get_timing()
+{
     global $conn;
     $sql = "SELECT * FROM `entry_and_exit`
 INNER JOIN users on users.id = entry_and_exit.user_id

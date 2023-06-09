@@ -25,7 +25,11 @@ get('/manage-reception', 'views/dashboard/manage-reception.php');
 get('/bime/add', 'views/dashboard/add-bime.php');
 get('/employ-list', 'views/dashboard/employ-list.php');
 get('/timing', 'views/dashboard/timing.php');
-
+get('/pricing', 'views/dashboard/pricing.php');
+post('/pricing', function () {
+    save_pricing();
+    header('Location: /pricing');
+});
 get('/reception/edit', 'views/dashboard/edit-reception.php');
 
 get('/reception/view', 'views/dashboard/view-reception.php');
