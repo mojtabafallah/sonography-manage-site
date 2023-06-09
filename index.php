@@ -16,12 +16,15 @@ get('/login', 'views/login.php');
 get('/register', 'views/register.php');
 get('/my-account', 'views/dashboard/my-account.php');
 get('/reception', 'views/dashboard/reception.php');
+get('/save-employee', 'views/dashboard/add-employee.php');
 get('/customer-list', 'views/dashboard/customer-list.php');
 get('/user/edit', 'views/dashboard/edit-user.php');
 get('/user/save_reception', 'views/dashboard/save_reception.php');
 get('/manage-bime', 'views/dashboard/manage-bime.php');
 get('/manage-reception', 'views/dashboard/manage-reception.php');
 get('/bime/add', 'views/dashboard/add-bime.php');
+get('/employ-list', 'views/dashboard/employ-list.php');
+get('/timing', 'views/dashboard/timing.php');
 
 get('/reception/edit', 'views/dashboard/edit-reception.php');
 
@@ -70,6 +73,16 @@ get('/bime/save', function () {
     include 'views/dashboard/manage-bime.php';
 });
 
+get('/user/entry', function () {
+    entry_user();
+    include 'views/dashboard/employ-list.php';
+});
+
+get('/user/exit', function () {
+    exit_user();
+    include 'views/dashboard/employ-list.php';
+});
+
 post('/bime/save', function () {
     save_bime();
     include 'views/dashboard/manage-bime.php';
@@ -86,6 +99,11 @@ post('/bime/edit', function () {
 post('/save_patient', function () {
     save_patient();
     include 'views/dashboard/reception.php';
+});
+
+post('/save_employee', function () {
+    save_employee();
+    include 'views/dashboard/employ-list.php';
 });
 
 post('/login', function () {

@@ -48,7 +48,8 @@ function get_name_user()
     return $_SESSION['name'];
 }
 
-function get_user_current_object(){
+function get_user_current_object()
+{
     global $conn;
     $sql = 'SELECT *
 		FROM users
@@ -385,6 +386,33 @@ function get_customers()
     return $finaData;
 }
 
+function get_employee()
+{
+    global $conn;
+    $sql = "SELECT *
+        FROM users
+        left join user_meta on user_meta.user_id = users.id
+        WHERE role_id = 2 and (meta_key = 'phone' or 1)
+        ";
+
+    $statement = $conn->prepare($sql);
+    $statement->execute();
+
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+    $finaData = [];
+    if (!$result) return [];
+    foreach ($result as $item) {
+        $temp['id'] = $item['id'];
+        $temp['national_code'] = $item['user_name'];
+        $temp['phone'] = $item['meta_value'];
+        $temp['f_name'] = $item['f_name'];
+        $temp['l_name'] = $item['l_name'];
+        $finaData[] = (object)$temp;
+    }
+    return $finaData;
+}
+
 function get_bimes()
 {
     global $conn;
@@ -629,6 +657,125 @@ function save_patient()
                 'l_name' => $_POST['last_name'],
                 'user_name' => $_POST['national_code'],
                 'password' => password_hash($_POST['mobile_phone'], PASSWORD_DEFAULT)
+            ]
+        );
+
+        $resultMeta = insert('user_meta',
+            [
+                'meta_key' => 'phone',
+                'meta_value' => $_POST['mobile_phone'],
+                'user_id' => $result['id']
+            ]);
+
+        if ($result) {
+            $message['success'] = 'ثبت نام با موفقیت انجام شد.';
+        } else {
+            $message['error'] = 'خطایی رخ داده است';
+        }
+
+    }
+}
+
+function entry_user()
+{
+    global $message;
+
+    if (!isset($_GET['user_id'])) {
+        header('Location: /employ-list');
+        exit();
+    }
+
+    $userItem = get_user($_GET['user_id']);
+
+    if (!$userItem) {
+        header('Location: /employ-list');
+        exit();
+    }
+
+    $result = insert('entry_and_exit',
+        [
+            'user_id' => $userItem->id,
+            'type' => true
+        ]
+    );
+    if ($result) {
+        $message['success'] = 'اطلاعات با موفقیت ثبت شد.';
+    } else {
+        $message['error'] = 'خطایی رخ داده است';
+    }
+
+}
+
+function exit_user()
+{
+    global $message;
+
+    if (!isset($_GET['user_id'])) {
+        header('Location: /employ-list');
+        exit();
+    }
+
+    $userItem = get_user($_GET['user_id']);
+
+    if (!$userItem) {
+        header('Location: /employ-list');
+        exit();
+    }
+
+    $result = insert('entry_and_exit',
+        [
+            'user_id' => $userItem->id,
+            'type' => false
+        ]
+    );
+    if ($result) {
+        $message['success'] = 'اطلاعات با موفقیت ثبت شد.';
+    } else {
+        $message['error'] = 'خطایی رخ داده است';
+    }
+
+}
+
+function get_timing(){
+    global $conn;
+    $sql = "SELECT * FROM `entry_and_exit`
+INNER JOIN users on users.id = entry_and_exit.user_id
+        ";
+
+    $statement = $conn->prepare($sql);
+    $statement->execute();
+
+    return $statement->fetchAll(PDO::FETCH_OBJ);
+}
+
+function save_employee()
+{
+    if (isset($_POST['save_patient'])) {
+        global $message;
+
+        //validation
+        if (!isset($_POST['national_code'], $_POST['mobile_phone'], $_POST['csrf'],
+            $_POST['first_name'], $_POST['last_name']
+        )) {
+            $message['error'] = 'فیلدها ناقص میباشد';
+            return false;
+        }
+
+        //csrf
+        if (!is_csrf_valid()) {
+            $message['error'] = 'خطای امنیتی رخ داده است.';
+            return false;
+        }
+
+        //insert data
+        $result = insert(
+            'users',
+            [
+                'f_name' => $_POST['first_name'],
+                'l_name' => $_POST['last_name'],
+                'user_name' => $_POST['national_code'],
+                'password' => password_hash($_POST['mobile_phone'], PASSWORD_DEFAULT),
+                'role_id' => 2
             ]
         );
 
