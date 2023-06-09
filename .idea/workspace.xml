@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7707005c-0484-4557-b2c1-2febc3eb19c7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/db.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/dashboard/customer-list.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/views/dashboard/edit-user.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/footer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/db.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/dashboard/part/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard/part/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/dashboard/part/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard/part/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/dashboard/reception.php" beforeDir="false" afterPath="$PROJECT_DIR$/views/dashboard/reception.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +51,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/views/dashboard" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/asset/img" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.grazie" />
@@ -61,6 +59,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\sono\asset\img" />
       <recent name="D:\sono\views\dashboard" />
       <recent name="D:\sono\asset\font" />
     </key>
@@ -85,7 +84,8 @@
       <workItem from="1685465226615" duration="1465000" />
       <workItem from="1685502295290" duration="286000" />
       <workItem from="1686152501382" duration="2640000" />
-      <workItem from="1686190356238" duration="12130000" />
+      <workItem from="1686190356238" duration="14574000" />
+      <workItem from="1686266515784" duration="8757000" />
     </task>
     <servers />
   </component>

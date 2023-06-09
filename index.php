@@ -16,8 +16,21 @@ get('/login', 'views/login.php');
 get('/register', 'views/register.php');
 get('/my-account', 'views/dashboard/my-account.php');
 get('/reception', 'views/dashboard/reception.php');
+get('/customer-list', 'views/dashboard/customer-list.php');
+get('/user/edit', 'views/dashboard/edit-user.php');
+
+get('/user/delete', function () {
+    delete_user();
+    include 'views/dashboard/edit-user.php';
+});
+
 get('/logout', function () {
     logout();
+});
+
+post('/user/edit', function () {
+    user_edit();
+    include 'views/dashboard/edit-user.php';
 });
 
 post('/save_patient', function () {
