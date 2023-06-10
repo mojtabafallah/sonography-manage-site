@@ -183,6 +183,13 @@ function user_edit()
             return false;
         }
         $user_id = $_POST['user_id'];
+
+        //exist
+        if (existUsername(trim($_POST['national_code']))) {
+            $message['error'] = 'این نام کاربری قبلا استفاده شده است';
+            return false;
+        }
+
         //insert data
         $result = edit(
             'users',
@@ -649,6 +656,12 @@ function save_patient()
             return false;
         }
 
+        //exist
+        if (existUsername(trim($_POST['national_code']))) {
+            $message['error'] = 'این نام کاربری قبلا استفاده شده است';
+            return false;
+        }
+
         //insert data
         $result = insert(
             'users',
@@ -885,6 +898,12 @@ function save_employee()
         //csrf
         if (!is_csrf_valid()) {
             $message['error'] = 'خطای امنیتی رخ داده است.';
+            return false;
+        }
+
+        //exist
+        if (existUsername(trim($_POST['national_code']))) {
+            $message['error'] = 'این نام کاربری قبلا استفاده شده است';
             return false;
         }
 

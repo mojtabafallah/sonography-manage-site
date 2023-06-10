@@ -72,12 +72,6 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link active" href="/turn-ratings">
-                    <span class="nav-link-text ms-1">نوبت دهی آنلاین</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
                 <a class="nav-link active" href="/timing">
                     <span class="nav-link-text ms-1">ورود و خروج</span>
                 </a>

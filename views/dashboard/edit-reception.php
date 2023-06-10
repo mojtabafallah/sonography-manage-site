@@ -85,10 +85,10 @@ include 'part/header.php';
                                     <label for="type-reception">نوع پذیرش</label>
                                     <select name="type_reception" id="type-reception" class="form-select">
                                         <option value="">انتخاب کنید</option>
-                                        <option value="sono" <?php echo $receptionItem->type === 'sono' ? 'selected' : '' ?>>
+                                        <option value="sono" data-price="<?php echo get_option('sono_price')?>" <?php echo $receptionItem->type === 'sono' ? 'selected' : '' ?>>
                                             سنو گرافی
                                         </option>
-                                        <option value="radio" <?php echo $receptionItem->type === 'radio' ? 'selected' : '' ?>>
+                                        <option value="radio" data-price="<?php echo get_option('radio_price')?>" <?php echo $receptionItem->type === 'radio' ? 'selected' : '' ?>>
                                             رادیولوژی
                                         </option>
                                     </select>
@@ -102,6 +102,7 @@ include 'part/header.php';
                                         <option value="">نوع بیمه را انتخاب کنید</option>
                                         <?php foreach ($bimes as $bime): ?>
                                             <option value="<?php echo $bime->id ?>"
+                                                    data-percent="<?php echo $bime->percent ?>"
                                                 <?php echo $receptionItem->bime_id === $bime->id ? 'selected' : '' ?>><?php echo $bime->title ?></option>
                                         <?php endforeach; ?>
                                     </select>

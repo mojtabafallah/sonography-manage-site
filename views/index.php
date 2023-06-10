@@ -22,7 +22,6 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <?php require_once('parts/users.php') ?>
     </div>
 
 </main>

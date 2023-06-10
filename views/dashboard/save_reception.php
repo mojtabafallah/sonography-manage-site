@@ -1,8 +1,4 @@
 <?php
-if (!is_admin()) {
-    header('Location: /my-account');
-    exit();
-}
 
 //get user_data
 if (!isset($_GET['user_id'])) {
@@ -84,8 +80,12 @@ include 'part/header.php';
                                     <label for="type-reception">نوع پذیرش</label>
                                     <select name="type_reception" id="type-reception" class="form-select">
                                         <option value="">انتخاب کنید</option>
-                                        <option value="sono">سنو گرافی</option>
-                                        <option value="radio">رادیولوژی</option>
+                                        <option data-price="<?php echo get_option('sono_price') ?>" value="sono">سنو
+                                            گرافی
+                                        </option>
+                                        <option data-price="<?php echo get_option('radio_price') ?>" value="radio">
+                                            رادیولوژی
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -94,9 +94,10 @@ include 'part/header.php';
                                 <div class="form-group">
                                     <label for="type-bime">بیمه پایه</label>
                                     <select name="type_bime" class="form-select" id="type-bime">
-                                        <option value="">نوع بیمه را انتخاب کنید</option>
+                                        <option data-percent="0" value="">نوع بیمه را انتخاب کنید</option>
                                         <?php foreach ($bimes as $bime): ?>
-                                            <option value="<?php echo $bime->id ?>"><?php echo $bime->title ?></option>
+                                            <option data-percent="<?php echo $bime->percent ?>"
+                                                    value="<?php echo $bime->id ?>"><?php echo $bime->title ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
